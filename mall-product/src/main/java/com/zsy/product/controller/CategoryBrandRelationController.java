@@ -22,7 +22,7 @@ import com.zsy.common.utils.R;
  * 品牌分类关联
  *
  * @author zsy
- * @email zsy@gmail.com
+ * @email 594983498@qq.com
  * @date 2019-11-17 21:25:25
  */
 @RestController

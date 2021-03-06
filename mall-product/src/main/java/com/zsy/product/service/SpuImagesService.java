@@ -11,7 +11,7 @@ import java.util.Map;
  * spu图片
  *
  * @author zsy
- * @email zsy@gmail.com
+ * @email 594983498@qq.com
  * @date 2019-10-01 21:08:49
  */
 public interface SpuImagesService extends IService<SpuImagesEntity> {
