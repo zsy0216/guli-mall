@@ -6,11 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 这是一个声明式的远程调用
+ * @author ZSY
  */
-@FeignClient("gulimall-coupon")
+@FeignClient("mall-coupon")
 public interface CouponFeignService {
 
+    /**
+     * 远程调用 coupon 测试
+     * @return
+     */
     @RequestMapping("/coupon/coupon/member/list")
-    public R membercoupons();
-
+    R memberCoupons();
 }

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: mall-product
   datasource:
     username: root
     password: root

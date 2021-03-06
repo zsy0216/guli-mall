@@ -1,10 +1,10 @@
 spring:
   application:
-    name: mall-member
+    name: mall-coupon
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://192.168.163.131:3306/mall_ums
+    url: jdbc:mysql://192.168.163.131:3306/mall_sms
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
@@ -17,4 +17,4 @@ mybatis-plus:
     db-config:
       id-type: auto
 server:
-  port: 8000
+  port: 7000
