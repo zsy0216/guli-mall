@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: mall-product
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.163.131:3306/mall_pms
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.163.131:8848
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+server:
+  port: 10000
+logging:
+  level:
+    com.zsy: debug
