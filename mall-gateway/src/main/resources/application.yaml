@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        #Query A 参数有A就行，Query B,C 参数B的值为C即可
+        #实现针对于“http://localhost:88/hello?url=baidu”，转发到“https://www.baidu.com/hello”，
+        #针对于“http://localhost:88/hello?url=qq”的请求，转发到“https://www.qq.com/hello”
+        - id: test_route
+          uri: https://www.baidu.com
+          predicates:
+            - Query=url,baidu
+
+        - id: github_route
+          uri: https://www.github.com
+          predicates:
+            - Query=url,github
+
+server:
+  port: 88
