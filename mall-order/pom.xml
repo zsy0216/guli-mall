@@ -13,6 +13,13 @@
     <name>mall-order</name>
     <description>订单服务</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.zsy</groupId>
+            <artifactId>mall-common</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

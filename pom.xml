@@ -13,6 +13,7 @@
         <module>mall-order</module>
         <module>mall-product</module>
         <module>mall-ware</module>
+        <module>mall-common</module>
     </modules>
     <name>guli-mall</name>
     <description>parent</description>
@@ -20,9 +21,18 @@
     <!--  这里的属性会被子模块继承  -->
     <properties>
         <java.version>1.8</java.version>
+        <mall.version>0.0.1-SNAPSHOT</mall.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <lombok.version>1.18.18</lombok.version>
+        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mysql.version>8.0.23</mysql.version>
+        <http.components.version>4.4.13</http.components.version>
+        <commons.lang.version>2.6</commons.lang.version>
         <spring.boot.version>2.4.3</spring.boot.version>
         <spring-cloud.version>2020.0.1</spring-cloud.version>
     </properties>
+    <!--  子模块继承父模块之后，提供作用：锁定版本 + 子模块不用再写 version  -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -39,24 +49,46 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${http.components.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons.lang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zsy</groupId>
+                <artifactId>mall-common</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <!--  这里的依赖会被子模块继承  -->
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
