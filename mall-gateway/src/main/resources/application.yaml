@@ -8,17 +8,26 @@ spring:
     gateway:
       routes:
         #Query A 参数有A就行，Query B,C 参数B的值为C即可
-        #实现针对于“http://localhost:88/hello?url=baidu”，转发到“https://www.baidu.com/hello”，
-        #针对于“http://localhost:88/hello?url=qq”的请求，转发到“https://www.qq.com/hello”
-        - id: test_route
-          uri: https://www.baidu.com
+        #实现针对于“http://localhost:88/zsy0216?url=baidu”，转发到“https://www.github.com/zsy0216”，
+        #- id: github_route
+        #  uri: https://www.github.com
+        #  predicates:
+        #    - Query=url,github
+        - id: product_route
+          uri: lb://mall-product
           predicates:
-            - Query=url,baidu
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
 
-        - id: github_route
-          uri: https://www.github.com
+        - id: admin_route
+          uri: lb://renren-fast
           predicates:
-            - Query=url,github
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+      ## http://localhost:88/api/captcha.jpg   http://localhost:8080/renren-fast/captcha.jpg
+      ## http://localhost:88/api/product/category/list/tree http://localhost:10000/product/category/list/tree
 
 server:
   port: 88
