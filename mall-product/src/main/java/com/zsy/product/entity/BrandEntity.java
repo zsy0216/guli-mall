@@ -51,9 +51,9 @@ public class BrandEntity implements Serializable {
     /**
      * 显示状态[0-不显示；1-显示]
      */
-//	@Pattern()
+    // @Pattern()
     @NotNull(groups = {AddGroup.class, UpdateStatusGroup.class})
-    @ListValue(vals = {0, 1}, groups = {AddGroup.class, UpdateStatusGroup.class})
+    @ListValue(values = {0, 1}, groups = {AddGroup.class, UpdateStatusGroup.class})
     private Integer showStatus;
     /**
      * 检索首字母
