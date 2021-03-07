@@ -83,7 +83,8 @@ public class CategoryController {
     /**
      * 删除
      *
-     * @RequestBody:获取请求体，必须发送POST请求 SpringMVC自动将请求体的数据（json），转为对应的对象
+     * @RequestBody: 获取请求体，必须发送POST请求
+     * SpringMVC自动将请求体的数据（json），转为对应的对象
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("product:category:delete")
@@ -91,7 +92,6 @@ public class CategoryController {
         //categoryService.removeByIds(Arrays.asList(catIds));
 
         categoryService.removeMenuByIds(Arrays.asList(catIds));
-
         return R.ok();
     }
 }
