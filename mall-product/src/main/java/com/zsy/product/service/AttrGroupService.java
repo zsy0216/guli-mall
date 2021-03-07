@@ -17,12 +17,21 @@ import java.util.Map;
  */
 public interface AttrGroupService extends IService<AttrGroupEntity> {
 
+    /**
+     * 分页查询属性分组三级分类
+     * @param params
+     * @return
+     */
     PageUtils queryPage(Map<String, Object> params);
 
+    /**
+     * 分页查询属性分组三级分类
+     * @param params
+     * @param catelogId 分类id
+     * @return
+     */
     PageUtils queryPage(Map<String, Object> params, Long catelogId);
 
-
     List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId);
-
 }
 

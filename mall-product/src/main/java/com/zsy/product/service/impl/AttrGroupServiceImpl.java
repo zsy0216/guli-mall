@@ -33,7 +33,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<AttrGroupEntity> page = this.page(
                 new Query<AttrGroupEntity>().getPage(params),
-                new QueryWrapper<AttrGroupEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -43,41 +43,38 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
         String key = (String) params.get("key");
         //select * from pms_attr_group where catelog_id=? and (attr_group_id=key or attr_group_name like %key%)
-        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<AttrGroupEntity>();
-        if(!StringUtils.isEmpty(key)){
-            wrapper.and((obj)->{
-                obj.eq("attr_group_id",key).or().like("attr_group_name",key);
-            });
+        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(key)) {
+            // 根据 key 模糊查询
+            wrapper.and(obj -> obj.eq("attr_group_id", key).or().like("attr_group_name", key));
         }
 
-        if( catelogId == 0){
-            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params),
-                    wrapper);
+        if (catelogId == 0) {
+            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
             return new PageUtils(page);
-        }else {
-            wrapper.eq("catelog_id",catelogId);
-            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params),
-                    wrapper);
+        } else {
+            wrapper.eq("catelog_id", catelogId);
+            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
             return new PageUtils(page);
         }
-
     }
 
     /**
      * 根据分类id查出所有的分组以及这些组里面的属性
+     *
      * @param catelogId
      * @return
      */
     @Override
     public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId) {
-            //com.zsy.product.vo
+        //com.zsy.product.vo
         //1、查询分组信息
         List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
 
         //2、查询所有属性
         List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
             AttrGroupWithAttrsVo attrsVo = new AttrGroupWithAttrsVo();
-            BeanUtils.copyProperties(group,attrsVo);
+            BeanUtils.copyProperties(group, attrsVo);
             List<AttrEntity> attrs = attrService.getRelationAttr(attrsVo.getAttrGroupId());
             attrsVo.setAttrs(attrs);
             return attrsVo;
