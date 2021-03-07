@@ -46,8 +46,9 @@
 
 <script>
 import SingleUpload from '@/components/upload/singleUpload';
+
 export default {
-  components: { SingleUpload },
+  components: {SingleUpload},
   data() {
     return {
       visible: false,
@@ -61,12 +62,12 @@ export default {
         sort: 0
       },
       dataRule: {
-        name: [{ required: true, message: "品牌名不能为空", trigger: "blur" }],
+        name: [{required: true, message: "品牌名不能为空", trigger: "blur"}],
         logo: [
-          { required: true, message: "品牌logo地址不能为空", trigger: "blur" }
+          {required: true, message: "品牌logo地址不能为空", trigger: "blur"}
         ],
         descript: [
-          { required: true, message: "介绍不能为空", trigger: "blur" }
+          {required: true, message: "介绍不能为空", trigger: "blur"}
         ],
         showStatus: [
           {
@@ -94,7 +95,7 @@ export default {
             validator: (rule, value, callback) => {
               if (value == "") {
                 callback(new Error("排序字段必须填写"));
-              } else if (!Number.isInteger(value) || value<0) {
+              } else if (!Number.isInteger(value) || value < 0) {
                 callback(new Error("排序必须是一个大于等于0的整数"));
               } else {
                 callback();
@@ -119,7 +120,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.name = data.brand.name;
               this.dataForm.logo = data.brand.logo;
@@ -150,7 +151,7 @@ export default {
               firstLetter: this.dataForm.firstLetter,
               sort: this.dataForm.sort
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

@@ -7,15 +7,26 @@
         <artifactId>guli-mall</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>mall-product</artifactId>
+    <artifactId>mall-third-party</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mall-product</name>
-    <description>商品服务</description>
+    <name>mall-third-party</name>
+    <description>第三方服务整合</description>
 
     <dependencies>
         <dependency>
             <groupId>com.zsy</groupId>
             <artifactId>mall-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+            <version>2.2.0.RELEASE</version>
         </dependency>
     </dependencies>
 
