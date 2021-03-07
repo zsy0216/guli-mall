@@ -47,7 +47,6 @@ public class CategoryController {
     //@RequiresPermissions("product:category:info")
     public R info(@PathVariable("catId") Long catId) {
         CategoryEntity category = categoryService.getById(catId);
-
         return R.ok().put("data", category);
     }
 
@@ -58,7 +57,6 @@ public class CategoryController {
     //@RequiresPermissions("product:category:save")
     public R save(@RequestBody CategoryEntity category) {
         categoryService.save(category);
-
         return R.ok();
     }
 
@@ -78,7 +76,6 @@ public class CategoryController {
         categoryService.updateCascade(category);
         return R.ok();
     }
-
 
     /**
      * 删除

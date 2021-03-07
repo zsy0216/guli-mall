@@ -289,18 +289,19 @@ export default {
     },
 
     submitData() {
-      if (this.dialogType == "add") {
+      if (this.dialogType === "add") {
         this.addCategory();
       }
-      if (this.dialogType == "edit") {
+      if (this.dialogType === "edit") {
         this.editCategory();
       }
     },
     //修改三级分类数据
     editCategory() {
-      var {catId, name, icon, productUnit} = this.category;
+      const {catId, name, icon, productUnit} = this.category;
       this.$http({
-        url: this.$http.adornUrl("/product/category/update"),
+        url: this.$http.adornUrl(
+          "/product/category/update"),
         method: "post",
         data: this.$http.adornData({catId, name, icon, productUnit}, false)
       }).then(({data}) => {
@@ -338,7 +339,7 @@ export default {
     },
 
     remove(node, data) {
-      var ids = [data.catId];
+      const ids = [data.catId];
       this.$confirm(`是否删除【${data.name}】菜单?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
