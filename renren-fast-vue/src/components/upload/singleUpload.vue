@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div>
     <el-upload
       action="http://gulimall-hello.oss-cn-beijing.aliyuncs.com"
