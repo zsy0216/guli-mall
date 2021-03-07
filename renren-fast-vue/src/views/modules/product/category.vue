@@ -164,10 +164,7 @@ export default {
       let pCid = 0;
       let siblings = null;
       if (dropType == "before" || dropType == "after") {
-        pCid =
-          dropNode.parent.data.catId == undefined
-            ? 0
-            : dropNode.parent.data.catId;
+        pCid = dropNode.parent.data.catId == undefined ? 0 : dropNode.parent.data.catId;
         siblings = dropNode.parent.childNodes;
       } else {
         pCid = dropNode.data.catId;
@@ -203,7 +200,7 @@ export default {
     updateChildNodeLevel(node) {
       if (node.childNodes.length > 0) {
         for (let i = 0; i < node.childNodes.length; i++) {
-          var cNode = node.childNodes[i].data;
+          const cNode = node.childNodes[i].data;
           this.updateNodes.push({
             catId: cNode.catId,
             catLevel: node.childNodes[i].level
