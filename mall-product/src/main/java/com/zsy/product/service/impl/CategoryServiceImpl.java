@@ -70,8 +70,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<Long> parentPath = findParentPath(catelogId, paths);
 
         Collections.reverse(parentPath);
-
-
         return parentPath.toArray(new Long[parentPath.size()]);
     }
 
@@ -96,9 +94,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             findParentPath(byId.getParentCid(), paths);
         }
         return paths;
-
     }
-
 
     /**
      * 递归查找所有菜单的子菜单
