@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mall-order
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.163.131:8848
+        file-extension: yaml
+        namespace: 4300665c-f09b-4d15-ad10-85177b52520e
