@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mall-ware
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.163.131:8848
+        file-extension: yaml
+        namespace: 3b199019-b09d-4b35-81ce-5001b998e12d
