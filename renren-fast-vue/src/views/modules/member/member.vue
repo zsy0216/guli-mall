@@ -6,8 +6,9 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <!-- <el-button v-if="isAuth('member:member:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('member:member:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>-->
+         <!--   默认注释了新增删除     -->
+         <el-button v-if="isAuth('member:member:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('member:member:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -36,7 +37,7 @@
       <el-table-column prop="status" header-align="center" align="center" label="启用状态">
         <template slot-scope="scope">
           <el-switch
-            v-model="scope.row.status" 
+            v-model="scope.row.status"
             active-color="#13ce66"
             inactive-color="#ff4949"
             :active-value="1"
@@ -134,7 +135,7 @@ export default {
         this.$refs.addOrUpdate.init(id);
       });
     }
-    // 删除
+    //   TODO 删除
     //   deleteHandle (id) {
     //     var ids = id ? [id] : this.dataListSelections.map(item => {
     //       return item.id
