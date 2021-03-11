@@ -17,6 +17,7 @@
         <module>mall-gateway</module>
         <module>renren-fast</module>
         <module>mall-third-party</module>
+        <module>mall-search</module>
     </modules>
     <name>guli-mall</name>
     <description>parent</description>
@@ -32,6 +33,7 @@
         <mysql.version>8.0.23</mysql.version>
         <http.components.version>4.4.13</http.components.version>
         <commons.lang.version>2.6</commons.lang.version>
+        <elasticsearch.version>7.4.2</elasticsearch.version>
         <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
         <cloud.alibaba.version>2.2.1.RELEASE</cloud.alibaba.version>
@@ -89,6 +91,23 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- 重写覆盖 spring-boot-dependencies 中的依赖版本  -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
             </dependency>
 
             <dependency>
