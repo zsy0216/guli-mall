@@ -66,7 +66,7 @@ export default {
   methods: {
     searchSpuInfo() {
       console.log("搜索条件", this.dataForm);
-      this.PubSub.publish("dataForm", this.dataForm);
+      PubSub.publish("dataForm", this.dataForm);
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
