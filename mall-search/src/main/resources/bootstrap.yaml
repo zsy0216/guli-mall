@@ -3,11 +3,7 @@ spring:
     name: mall-search
   cloud:
     nacos:
-      discovery:
+      config:
         server-addr: 192.168.163.131:8848
-
-server:
-  port: 12000
-logging:
-  level:
-    com.zsy: debug
+        file-extension: yaml
+        namespace: f2ac2d4e-8faa-4679-986f-be20edad97db

@@ -8,6 +8,8 @@
 
 package com.zsy.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -24,6 +26,27 @@ public class R extends HashMap<String, Object> {
     public R() {
         put("code", 0);
         put("msg", "success");
+    }
+
+    public R setData(Object data) {
+        put("data", data);
+        return this;
+    }
+
+    // 利用fastjson进行反序列化
+    public <T> T getData(TypeReference<T> typeReference) {
+        // 默认是map
+        Object data = get("data");
+        String jsonString = JSON.toJSONString(data);
+        return JSON.parseObject(jsonString, typeReference);
+    }
+
+    // 利用fastjson进行反序列化
+    public <T> T getData(String key, TypeReference<T> typeReference) {
+        // 默认是map
+        Object data = get(key);
+        String jsonString = JSON.toJSONString(data);
+        return JSON.parseObject(jsonString, typeReference);
     }
 
     public static R error() {
@@ -57,6 +80,7 @@ public class R extends HashMap<String, Object> {
         return new R();
     }
 
+    @Override
     public R put(String key, Object value) {
         super.put(key, value);
         return this;
