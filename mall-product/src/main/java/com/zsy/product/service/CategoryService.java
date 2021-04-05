@@ -3,6 +3,7 @@ package com.zsy.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zsy.common.utils.PageUtils;
 import com.zsy.product.entity.CategoryEntity;
+import com.zsy.product.vo.Catelog2Vo;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,18 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     void updateCascade(CategoryEntity category);
 
+    /**
+     * 查找一级分类，首页显示
+     *
+     * @return
+     */
+    List<CategoryEntity> getLevel1Categories();
+
+    /**
+     * 查找二级、三级分类，首页显示
+     *
+     * @return
+     */
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 }
 

@@ -12,6 +12,8 @@ spring:
         server-addr: 192.168.163.131:8848
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
