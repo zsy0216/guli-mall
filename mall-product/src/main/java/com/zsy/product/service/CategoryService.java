@@ -3,7 +3,7 @@ package com.zsy.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zsy.common.utils.PageUtils;
 import com.zsy.product.entity.CategoryEntity;
-import com.zsy.product.vo.Catelog2Vo;
+import com.zsy.product.vo.Catalogs2Vo;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +40,7 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @param catelogId
      * @return
      */
-    Long[] findCatelogPath(Long catelogId);
+    Long[] findCatalogPath(Long catelogId);
 
     void updateCascade(CategoryEntity category);
 
@@ -56,6 +56,6 @@ public interface CategoryService extends IService<CategoryEntity> {
      *
      * @return
      */
-    Map<String, List<Catelog2Vo>> getCatalogJson();
+    Map<String, List<Catalogs2Vo>> getCatalogJson();
 }
 

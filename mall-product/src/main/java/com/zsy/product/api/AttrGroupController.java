@@ -101,7 +101,7 @@ public class AttrGroupController {
         AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
 
         Long catelogId = attrGroup.getCatelogId();
-        Long[] path = categoryService.findCatelogPath(catelogId);
+        Long[] path = categoryService.findCatalogPath(catelogId);
 
         attrGroup.setCatelogPath(path);
 

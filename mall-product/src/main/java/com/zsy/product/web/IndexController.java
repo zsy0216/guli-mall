@@ -2,7 +2,7 @@ package com.zsy.product.web;
 
 import com.zsy.product.entity.CategoryEntity;
 import com.zsy.product.service.CategoryService;
-import com.zsy.product.vo.Catelog2Vo;
+import com.zsy.product.vo.Catalogs2Vo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +45,7 @@ public class IndexController {
      */
     @GetMapping(value = "/index/catalog.json")
     @ResponseBody
-    public Map<String, List<Catelog2Vo>> getCatalogJson() {
+    public Map<String, List<Catalogs2Vo>> getCatalogJson() {
         return categoryService.getCatalogJson();
     }
 

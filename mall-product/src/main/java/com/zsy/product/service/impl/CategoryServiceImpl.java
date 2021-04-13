@@ -1,7 +1,7 @@
 package com.zsy.product.service.impl;
 
 import com.zsy.product.service.CategoryBrandRelationService;
-import com.zsy.product.vo.Catelog2Vo;
+import com.zsy.product.vo.Catalogs2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +66,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     //[2,25,225]
     @Override
-    public Long[] findCatelogPath(Long catelogId) {
+    public Long[] findCatalogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
         List<Long> parentPath = findParentPath(catelogId, paths);
 
@@ -122,45 +122,45 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public Map<String, List<Catelog2Vo>> getCatalogJson() {
+    public Map<String, List<Catalogs2Vo>> getCatalogJson() {
         System.out.println("查询了数据库");
 
-        //将数据库的多次查询变为一次
+        // 性能优化：将数据库的多次查询变为一次
         List<CategoryEntity> selectList = this.baseMapper.selectList(null);
 
         //1、查出所有分类
         //1、1）查出所有一级分类
-        List<CategoryEntity> level1Categorys = getParentCid(selectList, 0L);
+        List<CategoryEntity> level1Categories = getParentCid(selectList, 0L);
 
         //封装数据
-        Map<String, List<Catelog2Vo>> parentCid = level1Categorys.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), v -> {
+        Map<String, List<Catalogs2Vo>> parentCid = level1Categories.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), v -> {
             //1、每一个的一级分类,查到这个一级分类的二级分类
             List<CategoryEntity> categoryEntities = getParentCid(selectList, v.getCatId());
 
             //2、封装上面的结果
-            List<Catelog2Vo> catelog2Vos = null;
+            List<Catalogs2Vo> catalogs2Vos = null;
             if (categoryEntities != null) {
-                catelog2Vos = categoryEntities.stream().map(l2 -> {
-                    Catelog2Vo catelog2Vo = new Catelog2Vo(v.getCatId().toString(), null, l2.getCatId().toString(), l2.getName().toString());
+                catalogs2Vos = categoryEntities.stream().map(l2 -> {
+                    Catalogs2Vo catalogs2Vo = new Catalogs2Vo(v.getCatId().toString(), null, l2.getCatId().toString(), l2.getName().toString());
 
                     //1、找当前二级分类的三级分类封装成vo
                     List<CategoryEntity> level3Catelog = getParentCid(selectList, l2.getCatId());
 
                     if (level3Catelog != null) {
-                        List<Catelog2Vo.Category3Vo> category3Vos = level3Catelog.stream().map(l3 -> {
+                        List<Catalogs2Vo.Category3Vo> category3Vos = level3Catelog.stream().map(l3 -> {
                             //2、封装成指定格式
-                            Catelog2Vo.Category3Vo category3Vo = new Catelog2Vo.Category3Vo(l2.getCatId().toString(), l3.getCatId().toString(), l3.getName());
+                            Catalogs2Vo.Category3Vo category3Vo = new Catalogs2Vo.Category3Vo(l2.getCatId().toString(), l3.getCatId().toString(), l3.getName());
 
                             return category3Vo;
                         }).collect(Collectors.toList());
-                        catelog2Vo.setCatalog3List(category3Vos);
+                        catalogs2Vo.setCatalog3List(category3Vos);
                     }
 
-                    return catelog2Vo;
+                    return catalogs2Vo;
                 }).collect(Collectors.toList());
             }
 
-            return catelog2Vos;
+            return catalogs2Vos;
         }));
 
         return parentCid;

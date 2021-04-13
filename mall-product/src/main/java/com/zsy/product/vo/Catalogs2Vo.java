@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Catelog2Vo {
+public class Catalogs2Vo {
 
     /**
      * 一级父分类的id
