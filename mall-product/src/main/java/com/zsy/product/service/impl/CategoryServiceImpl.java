@@ -1,8 +1,11 @@
 package com.zsy.product.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.zsy.product.service.CategoryBrandRelationService;
 import com.zsy.product.vo.Catalogs2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,6 +21,10 @@ import com.zsy.product.dao.CategoryDao;
 import com.zsy.product.entity.CategoryEntity;
 import com.zsy.product.service.CategoryService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.annotation.Resource;
 
 
 @Service("categoryService")
@@ -28,6 +35,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Autowired
     CategoryBrandRelationService categoryBrandRelationService;
+
+    @Autowired
+    StringRedisTemplate redisTemplate;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -123,6 +133,24 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public Map<String, List<Catalogs2Vo>> getCatalogJson() {
+        // 1.从缓存中读取分类信息
+        String catalogJSON = redisTemplate.opsForValue().get("catalogJSON");
+        if (StringUtils.isEmpty(catalogJSON)) {
+            // 2. 缓存中没有，查询数据库
+            Map<String, List<Catalogs2Vo>> catalogJsonFromDB = getCatalogJsonFromDB();
+            // 3. 查询到的数据存放到缓存中，将对象转成 JSON 存储
+            redisTemplate.opsForValue().set("catalogJSON", JSON.toJSONString(catalogJsonFromDB));
+            return catalogJsonFromDB;
+        }
+        return JSON.parseObject(catalogJSON, new TypeReference<Map<String, List<Catalogs2Vo>>>(){});
+    }
+
+    /**
+     * 加缓存前,只读取数据库的操作
+     *
+     * @return
+     */
+    public Map<String, List<Catalogs2Vo>> getCatalogJsonFromDB() {
         System.out.println("查询了数据库");
 
         // 性能优化：将数据库的多次查询变为一次
