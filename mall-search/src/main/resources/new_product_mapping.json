@@ -1,4 +1,4 @@
-//PUT gulimall_product
+//PUT mall_product
 {
   "mappings": {
     "properties": {
@@ -30,7 +30,7 @@
       "brandId": {
         "type": "long"
       },
-      "catelogId": {
+      "catalogId": {
         "type": "long"
       },
       "brandName": {

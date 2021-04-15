@@ -1,4 +1,4 @@
-PUT product
+// PUT product
 {
   "mappings": {
     "properties": {

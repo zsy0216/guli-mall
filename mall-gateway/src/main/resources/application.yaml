@@ -62,10 +62,40 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
 
-        - id: gulimall_host_route # 要放在后面
+        - id: mall_host_route # 要放在后面
           uri: lb://mall-product
           predicates:
-            - Host=**.gulimall.com
+            - Host=gulimall.com
+
+        - id: mall_search_route
+          uri: lb://mall-search
+          predicates:
+            - Host=search.gulimall.com
+
+        - id: mall_auth_route
+          uri: lb://mall-auth-server
+          predicates:
+            - Host=auth.gulimall.com
+
+        - id: mall_cart_route
+          uri: lb://mall-cart
+          predicates:
+            - Host=cart.gulimall.com
+
+        - id: mall_order_route
+          uri: lb://mall-order
+          predicates:
+            - Host=order.gulimall.com
+
+        - id: mall_member_route
+          uri: lb://mall-member
+          predicates:
+            - Host=member.gulimall.com
+
+        - id: mall_seckill_route
+          uri: lb://mall-seckill
+          predicates:
+            - Host=seckill.gulimall.com
 
       ## http://localhost:88/api/captcha.jpg   http://localhost:8080/renren-fast/captcha.jpg
       ## http://localhost:88/api/product/category/list/tree http://localhost:10000/product/category/list/tree

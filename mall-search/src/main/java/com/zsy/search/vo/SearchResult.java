@@ -17,7 +17,6 @@ public class SearchResult {
      */
     private List<SkuEsModel> product;
 
-
     /**
      * 当前页码
      */
