@@ -3,6 +3,7 @@ package com.zsy.product.service.impl;
 import com.zsy.product.entity.AttrEntity;
 import com.zsy.product.service.AttrService;
 import com.zsy.product.vo.AttrGroupWithAttrsVo;
+import com.zsy.product.vo.SpuItemAttrGroupVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,9 @@ import com.zsy.product.entity.AttrGroupEntity;
 import com.zsy.product.service.AttrGroupService;
 import org.springframework.util.StringUtils;
 
-
+/**
+ * @author ZSY
+ */
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
 
@@ -72,17 +75,20 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
 
         //2、查询所有属性
-        List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
+        return attrGroupEntities.stream().map(group -> {
             AttrGroupWithAttrsVo attrsVo = new AttrGroupWithAttrsVo();
             BeanUtils.copyProperties(group, attrsVo);
             List<AttrEntity> attrs = attrService.getRelationAttr(attrsVo.getAttrGroupId());
             attrsVo.setAttrs(attrs);
             return attrsVo;
         }).collect(Collectors.toList());
-
-        return collect;
-
-
     }
 
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
+
+        //1、查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
+        AttrGroupDao baseMapper = this.getBaseMapper();
+        return baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
+    }
 }

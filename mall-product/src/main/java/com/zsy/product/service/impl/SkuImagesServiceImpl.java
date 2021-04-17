@@ -2,6 +2,7 @@ package com.zsy.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,10 +25,14 @@ public class SkuImagesServiceImpl extends ServiceImpl<SkuImagesDao, SkuImagesEnt
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SkuImagesEntity> page = this.page(
                 new Query<SkuImagesEntity>().getPage(params),
-                new QueryWrapper<SkuImagesEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
     }
 
+    @Override
+    public List<SkuImagesEntity> getImagesBySkuId(Long skuId) {
+        return this.baseMapper.selectList(new QueryWrapper<SkuImagesEntity>().eq("sku_id", skuId));
+    }
 }

@@ -65,7 +65,7 @@ spring:
         - id: mall_host_route # 要放在后面
           uri: lb://mall-product
           predicates:
-            - Host=gulimall.com
+            - Host=gulimall.com, item.gulimall.com
 
         - id: mall_search_route
           uri: lb://mall-search

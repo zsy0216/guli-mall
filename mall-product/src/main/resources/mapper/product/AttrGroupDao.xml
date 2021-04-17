@@ -12,6 +12,23 @@
         <result property="icon" column="icon"/>
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="attrGroupMap">
+        SELECT
+            product.spu_id,
+            pag.attr_group_id,
+            pag.attr_group_name,
+            product.attr_id,
+            product.attr_name,
+            product.attr_value
+        FROM
+            pms_product_attr_value product
+                LEFT JOIN pms_attr_attrgroup_relation paar ON product.attr_id = paar.attr_id
+                LEFT JOIN pms_attr_group pag ON paar.attr_group_id = pag.attr_group_id
+        WHERE
+            product.spu_id = #{spuId}
+          AND pag.catelog_id = #{catalogId}
+
+    </select>
 
 
 </mapper>
