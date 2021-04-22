@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mall-auth-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.163.131:8848
+
+server:
+  port: 20000
