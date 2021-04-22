@@ -3,9 +3,7 @@ package com.zsy.ware.vo;
 import lombok.Data;
 
 /**
- * @Description:
- * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
+ * @author: zhangshuaiyin
  * @createTime: 2020-06-06 15:38
  **/
 
