@@ -18,6 +18,7 @@
         <module>renren-fast</module>
         <module>mall-third-party</module>
         <module>mall-search</module>
+        <module>mall-auth-server</module>
     </modules>
     <name>guli-mall</name>
     <description>parent</description>
