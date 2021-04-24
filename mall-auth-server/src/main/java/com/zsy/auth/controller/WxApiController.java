@@ -1,11 +1,11 @@
 // package com.zsy.auth.controller;
 //
 // import com.alibaba.fastjson.TypeReference;
-// import com.xunqi.common.utils.R;
-// import com.xunqi.common.vo.MemberResponseVo;
-// import com.xunqi.gulimall.auth.feign.MemberFeignService;
-// import com.xunqi.gulimall.auth.utils.ConstantWxUtils;
-// import com.xunqi.gulimall.auth.utils.HttpClientUtils;
+// import com.zsy.common.utils.R;
+// import com.zsy.common.vo.MemberResponseVo;
+// import com.zsy.gulimall.auth.feign.MemberFeignService;
+// import com.zsy.gulimall.auth.utils.ConstantWxUtils;
+// import com.zsy.gulimall.auth.utils.HttpClientUtils;
 // import lombok.extern.slf4j.Slf4j;
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@
 // import java.io.UnsupportedEncodingException;
 // import java.net.URLEncoder;
 //
-// import static com.xunqi.common.constant.AuthServerConstant.LOGIN_USER;
+// import static com.zsy.common.constant.AuthServerConstant.LOGIN_USER;
 //
 // /**
 //  * @author: zhangshuaiyin
@@ -122,7 +122,7 @@
 //                 baseUrl,
 //                 ConstantWxUtils.WX_OPEN_APP_ID,
 //                 redirect_url,
-//                 "xunqi"
+//                 "zsy"
 //         );
 //
 //         //重定向到请求微信地址

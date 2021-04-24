@@ -12,7 +12,7 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 /**
  * @Description:    springSession配置类
  * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
+ * @author: zhangshuaiyin
  * @createTime: 2020-06-29 13:36
  **//*
 

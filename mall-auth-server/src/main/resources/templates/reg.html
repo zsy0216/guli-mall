@@ -6271,7 +6271,7 @@ Cookie</span>是由网页服务器存放在您的访问设备上的文本文件�
       } else {
         //1、给指定手机号发送验证码
         $.get("/sms/sendCode?phone=" + $("#phoneNum").val(), function (data) {
-          if (data.code != 0) {
+          if (data.code !== 0) {
             alert(data.msg);
           }
         });
