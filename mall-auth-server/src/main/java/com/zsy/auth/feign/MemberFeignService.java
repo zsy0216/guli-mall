@@ -19,7 +19,6 @@ public interface MemberFeignService {
     @PostMapping(value = "/member/member/register")
     R register(@RequestBody UserRegisterVo vo);
 
-
     @PostMapping(value = "/member/member/login")
     R login(@RequestBody UserLoginVo vo);
 
