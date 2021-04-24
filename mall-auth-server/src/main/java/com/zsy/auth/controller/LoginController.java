@@ -8,6 +8,7 @@ import com.zsy.auth.vo.UserRegisterVo;
 import com.zsy.common.constant.AuthServerConstant;
 import com.zsy.common.exception.BizCodeEnum;
 import com.zsy.common.utils.R;
+import com.zsy.common.vo.MemberResponseVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -26,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import static com.zsy.common.constant.AuthServerConstant.LOGIN_USER;
 
 /**
  * @author: zhangshuaiyin
