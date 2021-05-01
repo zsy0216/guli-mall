@@ -10,11 +10,11 @@ import lombok.Data;
 @Data
 public class SocialUser {
 
-    private String accessToken;
+    private String access_token;
 
-    private String remindIn;
+    private String remind_in;
 
-    private long expiresIn;
+    private long expires_in;
 
     private String uid;
 

@@ -30,7 +30,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @author ZSY
+ */
 @Service("memberService")
 public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> implements MemberService {
 
@@ -131,7 +133,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         String uid = socialUser.getUid();
 
         //1、判断当前社交用户是否已经登录过系统
-        MemberEntity memberEntity = this.baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("social_uid", uid));
+        MemberEntity memberEntity = baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("social_uid", uid));
 
         if (memberEntity != null) {
             //这个用户已经注册过
@@ -140,7 +142,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             update.setId(memberEntity.getId());
             update.setAccessToken(socialUser.getAccess_token());
             update.setExpiresIn(socialUser.getExpires_in());
-            this.baseMapper.updateById(update);
+            baseMapper.updateById(update);
 
             memberEntity.setAccessToken(socialUser.getAccess_token());
             memberEntity.setExpiresIn(socialUser.getExpires_in());
@@ -152,7 +154,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             Map<String, String> query = new HashMap<>();
             query.put("access_token", socialUser.getAccess_token());
             query.put("uid", socialUser.getUid());
-            HttpResponse response = HttpUtils.doGet("https://api.weibo.com", "/2/users/show.json", "get", new HashMap<String, String>(), query);
+            HttpResponse response = HttpUtils.doGet("https://api.weibo.com", "/2/users/show.json", "get", new HashMap<>(), query);
 
             if (response.getStatusLine().getStatusCode() == 200) {
                 //查询成功
@@ -171,12 +173,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
                 register.setExpiresIn(socialUser.getExpires_in());
 
                 //把用户信息插入到数据库中
-                this.baseMapper.insert(register);
-
+                baseMapper.insert(register);
             }
             return register;
         }
-
     }
 
     @Override
