@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: mall-auth-server
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.163.131:8848
+        file-extension: yaml

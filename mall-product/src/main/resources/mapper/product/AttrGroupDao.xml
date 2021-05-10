@@ -3,7 +3,7 @@
 
 <mapper namespace="com.zsy.product.dao.AttrGroupDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.zsy.product.entity.AttrGroupEntity" id="attrGroupMap">
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
@@ -12,23 +12,27 @@
         <result property="icon" column="icon"/>
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
-    <select id="getAttrGroupWithAttrsBySpuId" resultMap="attrGroupMap">
-        SELECT
-            product.spu_id,
-            pag.attr_group_id,
-            pag.attr_group_name,
-            product.attr_id,
-            product.attr_name,
-            product.attr_value
-        FROM
-            pms_product_attr_value product
-                LEFT JOIN pms_attr_attrgroup_relation paar ON product.attr_id = paar.attr_id
-                LEFT JOIN pms_attr_group pag ON paar.attr_group_id = pag.attr_group_id
-        WHERE
-            product.spu_id = #{spuId}
+    <resultMap id="spuAttrGroup" type="com.zsy.product.vo.SpuItemAttrGroupVo">
+        <result property="groupName" column="attr_group_name"/>
+        <collection property="attrs" ofType="com.zsy.product.vo.Attr">
+            <result property="attrId" column="attr_id"/>
+            <result property="attrName" column="attr_name"/>
+            <result property="attrValue" column="attr_value"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="spuAttrGroup">
+        SELECT product.spu_id,
+               pag.attr_group_id,
+               pag.attr_group_name,
+               product.attr_id,
+               product.attr_name,
+               product.attr_value
+        FROM pms_product_attr_value product
+                 LEFT JOIN pms_attr_attrgroup_relation paar ON product.attr_id = paar.attr_id
+                 LEFT JOIN pms_attr_group pag ON paar.attr_group_id = pag.attr_group_id
+        WHERE product.spu_id = #{spuId}
           AND pag.catelog_id = #{catalogId}
 
     </select>
-
-
 </mapper>
