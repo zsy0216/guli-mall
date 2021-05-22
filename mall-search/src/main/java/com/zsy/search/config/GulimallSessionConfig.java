@@ -1,4 +1,4 @@
-package com.zsy.auth.config;
+package com.zsy.search.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

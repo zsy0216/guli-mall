@@ -10,6 +10,8 @@ spring:
   redis:
     port: 6379
     host: 192.168.163.131
+  session:
+    store-type: redis
 
 server:
   port: 20000

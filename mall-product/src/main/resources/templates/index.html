@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>我的商城</title>
-  <link rel="stylesheet" href="index/css/swiper-3.4.2.min.css">
-  <link rel="stylesheet" href="index/css/GL.css">
-  <script src="index/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <title>谷粒商城2020</title>
+  <link rel="stylesheet" href="/static/index/css/swiper-3.4.2.min.css">
+  <link rel="stylesheet" href="/static/index/css/GL.css">
+  <script src="/static/index/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 
-  <script src="index/js/swiper-3.4.2.jquery.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="index/js/swiper-3.4.2.min.js"></script>
+  <script src="/static/index/js/swiper-3.4.2.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="/static/index/js/swiper-3.4.2.min.js"></script>
 
 </head>
 
 <body>
 <div class="top_find">
   <div class="top_find_son">
-    <img src="index/img/top_find_logo.png" alt="">
+    <img src="/static/index/img/top_find_logo.png" alt="">
     <div class="input_find">
-      <input type="text" placeholder="卸妆水"/>
-      <span style="background: url(../static/index/img/img_12.png) 0 -1px;"></span>
-      <a href="#"><img src="index/img/img_09.png"/></a>
+      <input type="text" placeholder="卸妆水" />
+      <span style="background: url(/static/index/img/img_12.png) 0 -1px;"></span>
+      <a href="#"><img src="/static/index/img/img_09.png" /></a>
     </div>
   </div>
 </div>
@@ -41,16 +43,16 @@
 </ul>
 <header>
   <div class="head">
-    <a href="#"><img src="index/img/img_01.png"/></a>
+    <a href="#"><img src="/static/index/img/img_01.png" /></a>
     <p>X</p>
   </div>
   <!--头部-->
   <div class="header_head">
     <div class="header_head_box">
-      <a href="#" class="img"><img src="index/img/logo.jpg"/></a>
+      <a href="#" class="img"><img src="/static/index/img/logo.jpg" /></a>
       <b class="header_head_p">
         <a href="#">
-          <img src="index/img/img_05.png" style="border-radius: 50%;"/>
+          <img src="/static/index/img/img_05.png" style="border-radius: 50%;"/>
           <!--<span class="glyphicon glyphicon-map-marker"></span>-->
           北京</a>
         <div class="header_head_p_cs">
@@ -93,14 +95,18 @@
       </b>
       <ul>
         <li>
-          <a href="http://auth.gulimall.com/login.html">你好，请登录</a>
+          <a th:if="${session.loginUser != null}">欢迎, [[${session.loginUser.nickname}]]</a>
+          <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/login.html">你好，请登录</a>
         </li>
         <li>
-          <a href="http://auth.gulimall.com/reg.html" class="li_2">免费注册</a>
+          <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/reg.html" class="li_2">免费注册</a>
+        </li>
+        <li>
+          <a th:if="${session.loginUser != null}" href="http://auth.gulimall.com/loguot.html" class="li_2">立即退出</a>
         </li>
         <span>|</span>
         <li>
-          <a href="#">我的订单</a>
+          <a href="http://member.gulimall.com/memberOrder.html">我的订单</a>
         </li>
 
 
@@ -110,15 +116,15 @@
   <!--搜索导航-->
   <div class="header_sous">
     <div class="header_form">
-      <input id="searchText" type="text" placeholder=""/>
-      <span style="background: url(../static/index/img/img_12.png) 0 -1px;"></span>
+      <input id="searchText" type="text" placeholder="" />
+      <span style="background: url(/static/index/img/img_12.png) 0 -1px;"></span>
       <!--<button><i class="glyphicon"></i></button>-->
-      <a href="#"><img src="index/img/img_09.png" onclick="search()"/></a>
+      <a href="javascript:search();" ><img src="/static/index/img/img_09.png" /></a>
     </div>
     <div class="header_ico">
       <div class="header_gw">
-        <img src="index/img/img_15.png"/>
-        <span><a href="/购物车\One_JDshop.html">我的购物车</a></span>
+        <img src="/static/index/img/img_15.png" />
+        <span><a href="http://cart.gulimall.com/cart.html">我的购物车</a></span>
         <span>0</span>
       </div>
       <div class="header_ko">
@@ -191,7 +197,7 @@
       </ul>
     </nav>
     <div class="right">
-      <a href="#"><img src="index/img/img_21.png"/></a>
+      <a href="#"><img src="/static/index/img/img_21.png" /></a>
     </div>
   </div>
   <!--轮播主体内容-->
@@ -199,8 +205,8 @@
     <div class="header_banner">
       <div class="header_main_left">
         <ul>
-          <li th:each="category : ${categories}">
-            <a href="#" class="header_main_left_a" th:attr="ctg-data = ${category.catId}"><b th:text="${category.name}">家用电器</b></a>
+          <li  th:each="category : ${categories}">
+            <a href="#" class="header_main_left_a"   th:attr="ctg-data = ${category.catId}"><b th:text="${category.name}">家用电器</b></a>
           </li>
         </ul>
       </div>
@@ -208,18 +214,18 @@
         <div class="swiper-container swiper1">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <a href="#"><img src="index/img/lunbo.png"/></a>
+              <a href="#"><img src="/static/index/img/lunbo.png" /></a>
             </div>
 
             <div class="swiper-slide">
-              <a href="#"><img src="index/img/lunbo3.png"/></a>
+              <a href="#"><img src="/static/index/img/lunbo3.png" /></a>
             </div>
 
             <div class="swiper-slide">
-              <a href="#"><img src="index/img/lunbo6.png"/></a>
+              <a href="#"><img src="/static/index/img/lunbo6.png" /></a>
             </div>
             <div class="swiper-slide">
-              <a href="#"><img src="index/img/lunbo7.png"/></a>
+              <a href="#"><img src="/static/index/img/lunbo7.png" /></a>
             </div>
           </div>
           <div class="swiper-pagination"></div>
@@ -227,15 +233,15 @@
           <div class="swiper-button-prev swiper-button-white"></div>
         </div>
         <div class="header_main_center_b">
-          <a href="#"><img src="index/img/5a13bf0bNe1606e58.jpg"/></a>
-          <a href="#"><img src="index/img/5a154759N5385d5d6.jpg"/></a>
+          <a href="#"><img src="/static/index/img/5a13bf0bNe1606e58.jpg" /></a>
+          <a href="#"><img src="/static/index/img/5a154759N5385d5d6.jpg" /></a>
         </div>
       </div>
       <div class="header_main_right">
         <div class="header_main_right_user">
           <div class="user_info">
             <div class="user_info_tou">
-              <a href="#"><img class="" src="index/img/touxiang.png"></a>
+              <a href="#"><img class="" src="/static/index/img/touxiang.png"></a>
             </div>
             <div class="user_info_show">
               <p class="">Hi, 欢迎来到!</p>
@@ -302,73 +308,73 @@
             <ul>
               <li class="ser_box_item">
                 <a href="#">
-                  <img src="index/img/huafei.png"/>
+                  <img src="/static/index/img/huafei.png" />
                   <span>话费</span>
                 </a>
               </li>
               <li class="ser_box_item">
                 <a href="#">
-                  <img src="index/img/jipiao.png"/>
+                  <img src="/static/index/img/jipiao.png" />
                   <span>机票</span>
                 </a>
               </li>
               <li class="ser_box_item">
                 <a href="#">
-                  <img src="index/img/jiudian.png"/>
+                  <img src="/static/index/img/jiudian.png" />
                   <span>酒店</span>
                 </a>
               </li>
               <li class="ser_box_item">
                 <a href="#">
-                  <img src="index/img/youxi.png"/>
+                  <img src="/static/index/img/youxi.png" />
                   <span>游戏</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/qiyegou.png"/>
+                  <img src="/static/index/img/qiyegou.png" />
                   <span>企业购</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/jiayouka.png"/>
+                  <img src="/static/index/img/jiayouka.png" />
                   <span>加油卡</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/dianyingpiao.png"/>
+                  <img src="/static/index/img/dianyingpiao.png" />
                   <span>电影票</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/huochepiao.png" style="height:20px;"/>
+                  <img src="/static/index/img/huochepiao.png" style="height:20px;" />
                   <span>火车票</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/zhongchou.png"/>
+                  <img src="/static/index/img/zhongchou.png" />
                   <span>众筹</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/licai.png" style="height:22px;"/>
+                  <img src="/static/index/img/licai.png" style="height:22px;" />
                   <span>理财</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/lipinka.png" style="height:14px;"/>
+                  <img src="/static/index/img/lipinka.png" style="height:14px;" />
                   <span>礼品卡</span>
                 </a>
               </li>
               <li class="ser_box_item1">
                 <a href="#">
-                  <img src="index/img/baitiao.png" style="height:20px;"/>
+                  <img src="/static/index/img/baitiao.png" style="height:20px;" />
                   <span>白条</span>
                 </a>
               </li>
@@ -398,7 +404,7 @@
                         <a>流量充值</a>
                         <a>套餐变更</a>
                         <div class="ser_ol_div">
-                          <p>号码<input type="text"/></p>
+                          <p>号码<input type="text" /></p>
                           <p style="margin: 10px 0;">面值
                             <select name="">
                               <option value="">100元</option>
@@ -422,12 +428,12 @@
                         <a>特惠活动</a>
                         <div class="ser_ol_div1">
                           <p>
-                            <input type="radio" name="a" style="vertical-align:middle;"/>单程
-                            <input type="radio" name="a" style="vertical-align:middle;"/>往返
+                            <input type="radio" name="a" style="vertical-align:middle;" />单程
+                            <input type="radio" name="a" style="vertical-align:middle;" />往返
                           </p>
-                          <input type="text" placeholder="出发城市"/>
-                          <input type="text" placeholder="到达城市"/>
-                          <input type="text" placeholder="日期"/>
+                          <input type="text" placeholder="出发城市" />
+                          <input type="text" placeholder="到达城市" />
+                          <input type="text" placeholder="日期" />
                         </div>
                         <button>机票查询</button>
                         <span class="p">当季热门特惠机票</span>
@@ -439,10 +445,10 @@
                         <a class="active" style="width: 50%;">国内港澳台</a>
                         <a style="width: 50%;">促销活动</a>
                         <div class="ser_ol_div1">
-                          <input type="text" placeholder="出发城市" style="margin-top: 10px;"/>
-                          <input type="text" placeholder="到达城市"/>
-                          <input type="text" placeholder="日期"/>
-                          <input type="text" placeholder="酒店 商圈 地标"/>
+                          <input type="text" placeholder="出发城市" style="margin-top: 10px;" />
+                          <input type="text" placeholder="到达城市" />
+                          <input type="text" placeholder="日期" />
+                          <input type="text" placeholder="酒店 商圈 地标" />
                         </div>
                         <button>酒店查询</button>
                         <span class="p">订酒店到</span>
@@ -455,16 +461,16 @@
                         <a>QQ</a>
                         <a>页游</a>
                         <div class="ser_ol_div1">
-                          <input type="text" placeholder="游戏" style="margin-top: 15px;"/>
-                          <br/>面值
+                          <input type="text" placeholder="游戏" style="margin-top: 15px;" />
+                          <br />面值
                           <select name="" style="margin: 8px 0;">
                             <option value="">面值</option>
                             <option value="">面值</option>
                             <option value="">面值</option>
                           </select><span style="color: #C81623;">￥0.00</span>
                           <p>
-                            <input type="radio" name="a" style="width: 15px;vertical-align:middle;"/>直充
-                            <input type="radio" name="a" style="width: 15px;vertical-align:middle;"/>卡密
+                            <input type="radio" name="a" style="width: 15px;vertical-align:middle;" />直充
+                            <input type="radio" name="a" style="width: 15px;vertical-align:middle;" />卡密
                           </p>
                         </div>
                         <button>快速充值</button>
@@ -481,7 +487,7 @@
     </div>
     <div class="header_banner1">
       <a href="#" class="a">
-        <img src="index/img/5a1e5ce2N034ce344.png" class="aa"/>
+        <img src="/static/index/img/5a1e5ce2N034ce344.png" class="aa" />
       </a>
       <div class="header_banner1_div">
         <p>X</p>
@@ -515,60 +521,34 @@
     <div class="swiper-container swiper_section_second_list_left">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <ul>
-            <li>
-              <img src="index/img/section_second_list_img1.jpg" alt="">
-              <p>花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千</p>
-              <span>¥83.9</span><s>¥99.9</s>
-            </li>
-            <li>
-              <img src="index/img/section_second_list_img2.jpg" alt="">
-              <p>华为mate9 4GB+32GB版 月光银 移动联通电信4G手机 双卡</p>
-              <span>¥17.90</span><s>¥29.90</s>
-            </li>
-            <li>
-              <img src="index/img/section_second_list_img3.jpg" alt="">
-              <p>超能 植翠低泡洗衣液（鲜艳亮丽）2kg/袋装（新老包装随机</p>
-              <span>¥20.70</span><s>¥44.90</s>
-            </li>
-            <li>
-              <img src="index/img/section_second_list_img4.jpg" alt="">
-              <p>长城（GreatWall）红酒 特选5年橡木桶解百纳干红葡萄酒 整</p>
-              <span>¥399.00</span><s>¥599.00</s>
-            </li>
-            <li>
-              <img src="index/img/section_second_list_img5.jpg" alt="">
-              <p>惠普(HP)暗影精灵2代Pro 15.6英寸游戏笔记本电脑(i5-7300H</p>
-              <span>¥5999.00</span><s>¥6499.00</s>
-            </li>
-          </ul>
+          <!-- 动态拼装秒杀商品信息 -->
+          <ul id="seckillSkuContent"></ul>
         </div>
         <div class="swiper-slide">
           <ul>
             <li>
-              <img src="index/img/section_second_list_img6.jpg" alt="">
-              <p>Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理器/8GB内存/1TB/RP555显卡/4K屏 MNDY2CH/A） Apple iMac
-                21.5英寸一体机（2017新款四核Core i5 处理</p>
+              <img src="/static/index/img/section_second_list_img6.jpg" alt="">
+              <p>Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理器/8GB内存/1TB/RP555显卡/4K屏 MNDY2CH/A） Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理</p>
               <span>¥9588.00</span><s>¥10288.00</s>
             </li>
             <li>
-              <img src="index/img/section_second_list_img7.jpg" alt="">
+              <img src="/static/index/img/section_second_list_img7.jpg" alt="">
               <p>中柏（Jumper）EZpad 4S Pro 10.6英寸二合一平板电脑（X5 z</p>
               <span>¥848.00</span><s>¥899.00</s>
             </li>
             <li>
-              <img src="index/img/section_second_list_img8.jpg" alt="">
+              <img src="/static/index/img/section_second_list_img8.jpg" alt="">
               <p>飞利浦（PHILIPS）电动牙刷HX6761/03亮白型成人充电式声波震动牙刷粉色 飞利浦（PHILIPS）电动牙刷HX6761/03亮白型成人充电式声波
               </p>
               <span>¥379.00</span><s>¥698.00</s>
             </li>
             <li>
-              <img src="index/img/section_second_list_img9.jpg" alt="">
+              <img src="/static/index/img/section_second_list_img9.jpg" alt="">
               <p>美的(Midea) 258升 变频智能三门冰箱 一级能效 风冷无霜 中门</p>
               <span>¥3088.00</span><s>¥3299.00</s>
             </li>
             <li>
-              <img src="index/img/section_second_list_img10.jpg" alt="">
+              <img src="/static/index/img/section_second_list_img10.jpg" alt="">
               <p>【第二件减50元】蒙羊 内蒙古羔羊羊肋排 2.4斤</p>
               <span>¥99.90</span><s>¥199.00</s>
             </li>
@@ -584,10 +564,10 @@
     </div>
     <ul class="section_second_list_right">
       <li>
-        <img src="index/img/section_second_list_right_img.jpg" alt="">
+        <img src="/static/index/img/section_second_list_right_img.jpg" alt="">
       </li>
       <li>
-        <img src="index/img/section_second_list_right_img.png" alt="">
+        <img src="/static/index/img/section_second_list_right_img.png" alt="">
       </li>
       <div class="section_second_list_right_button">
         <p class="section_second_list_right_button_active"></p>
@@ -600,19 +580,36 @@
 </div>
 
 
+
 </body>
 <script type="text/javascript">
   function search() {
-    var keyword = $("#searchText").val()
-    window.location.href = "http://search.gulimall.com/list.html?keyword=" + keyword;
+    var keyword=$("#searchText").val()
+    window.location.href="http://search.gulimall.com/list.html?keyword="+keyword;
+  }
+
+  $.get("http://seckill.gulimall.com/getCurrentSeckillSkus", function (res) {
+    if (res.data.length > 0) {
+      res.data.forEach(function (item) {
+        $("<li onclick='toDetail(" + item.skuId + ")'></li>").append($("<img style='width: 130px; height: 130px' src='" + item.skuInfo.skuDefaultImg + "' />"))
+          .append($("<p>"+item.skuInfo.skuTitle+"</p>"))
+          .append($("<span>" + item.seckillPrice + "</span>"))
+          .append($("<s>" + item.skuInfo.price + "</s>"))
+          .appendTo("#seckillSkuContent");
+      })
+    }
+  })
+
+  function toDetail(skuId) {
+    location.href = "http://item.gulimall.com/" + skuId + ".html";
   }
 
 </script>
-<script type="text/javascript" src="index/js/text.js"></script>
-<script type="text/javascript" src="index/js/header.js"></script>
-<script type="text/javascript" src="index/js/secend.js"></script>
-<script type="text/javascript" src="index/js/zz.js"></script>
-<script type="text/javascript" src="index/jsindex.js"></script>
-<script type="text/javascript" src="index/js/left,top.js"></script>
-<script type="text/javascript" src="index/js/catalogLoader.js"></script>
+<script type="text/javascript" src="/static/index/js/text.js"></script>
+<script type="text/javascript" src="/static/index/js/header.js"></script>
+<script type="text/javascript" src="/static/index/js/secend.js"></script>
+<script type="text/javascript" src="/static/index/js/zz.js"></script>
+<script type="text/javascript" src="/static/index/js/index.js"></script>
+<script type="text/javascript" src="/static/index/js/left,top.js"></script>
+<script type="text/javascript" src="/static/index/js/catalogLoader.js"></script>
 </html>
