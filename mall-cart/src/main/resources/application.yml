@@ -1,0 +1,40 @@
+server:
+  port: 40000
+
+spring:
+  application:
+    name: mall-cart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.163.131:8848
+    sentinel:
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: 192.168.163.131:8080
+  redis:
+    port: 6379
+    host: 192.168.163.131
+
+#开启feign对sentinel的支持
+feign:
+  sentinel:
+    enabled: true
+  session:
+    store-type: redis
+
+#配置线程池
+gulimall:
+  thread:
+    coreSize: 20
+    maxSize: 200
+    keepAliveTime: 10
+
+#暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+

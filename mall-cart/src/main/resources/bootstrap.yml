@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mall-cart
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.163.131:8848
+        namespace: a758f750-9a5e-4159-a669-94f2f6f3ba22
+
+

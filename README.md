@@ -32,3 +32,13 @@
 | renren-fast      | 人人后台生成   | [人人开源](https://gitee.com/renrenio) 后端快速开发平台 |
 | renren-fast-vue  | 后台管理前端   | [人人开源](https://gitee.com/renrenio) 前端快速开发平台 |
 
+# 域名配置
+C:\Windows\System32\drivers\etc\hosts 文件
+```text
+# guli mall #
+192.168.163.131		gulimall.com
+192.168.163.131		search.gulimall.com
+192.168.163.131		item.gulimall.com
+192.168.163.131		auth.gulimall.com
+192.168.163.131		cart.gulimall.com
+```
