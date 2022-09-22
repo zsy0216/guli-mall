@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2018 人人开源 All rights reserved.
- *
+ * <p>
  * https://www.renren.io
- *
+ * </p>
  * 版权所有，侵权必究！
  */
 
@@ -32,7 +32,6 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@SuppressWarnings("unchecked")
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -45,10 +44,10 @@ public class DataSourceAspect {
     @Around("dataSourcePointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
-        Class targetClass = point.getTarget().getClass();
+        Class<?> targetClass = point.getTarget().getClass();
         Method method = signature.getMethod();
 
-        DataSource targetDataSource = (DataSource)targetClass.getAnnotation(DataSource.class);
+        DataSource targetDataSource = targetClass.getAnnotation(DataSource.class);
         DataSource methodDataSource = method.getAnnotation(DataSource.class);
         if(targetDataSource != null || methodDataSource != null){
             String value;
