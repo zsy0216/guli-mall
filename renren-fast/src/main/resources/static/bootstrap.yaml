@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: renren-fast
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.94.164.185:8849
+        file-extension: yaml
+        namespace: public
