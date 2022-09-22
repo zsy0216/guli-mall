@@ -22,6 +22,7 @@ import javax.servlet.DispatcherType;
  * @author Mark sunlightcs@gmail.com
  */
 @Configuration
+@SuppressWarnings("unchecked")
 public class FilterConfig {
 
     @Bean

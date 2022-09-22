@@ -32,6 +32,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@SuppressWarnings("unchecked")
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
