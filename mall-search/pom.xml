@@ -10,6 +10,10 @@
     <artifactId>mall-search</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mall-search</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <description>Elasticsearch 检索服务</description>
     <dependencies>
         <dependency>
@@ -61,6 +65,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.2.RELEASE</version>
+                <configuration>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

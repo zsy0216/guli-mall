@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 
 
 @Service("wareSkuService")
+@SuppressWarnings("unchecked")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
 
     @Autowired
