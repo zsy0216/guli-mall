@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
  * @author ZSY
  */
 @Service("categoryService")
+// 这样可以直接使用 BaseMapper 而不用注入 BaseMapper
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
     @Autowired
@@ -116,6 +117,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     private List<CategoryEntity> getChildless(CategoryEntity root, List<CategoryEntity> all) {
         return all.stream()
                 .filter(categoryEntity -> categoryEntity.getParentCid().equals(root.getCatId()))
+                // 改变元素的内部状态
                 .peek(categoryEntity -> {
                     //1、找到子菜单
                     categoryEntity.setChildren(getChildless(categoryEntity, all));
