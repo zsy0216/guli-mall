@@ -4,12 +4,22 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.163.131:8848
+        server-addr: 192.168.45.64:8849
   thymeleaf:
     cache: false
   redis:
+    open: false  # 是否开启redis缓存  true开启   false关闭
+    database: 0
+    host: localhost
     port: 6379
-    host: 192.168.163.131
+    password:    # 密码（默认为空）
+    timeout: 6000ms  # 连接超时时长（毫秒）
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5
   session:
     store-type: redis
 

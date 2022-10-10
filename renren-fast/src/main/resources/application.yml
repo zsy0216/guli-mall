@@ -12,7 +12,7 @@ server:
 spring:
   cloud:
     nacos:
-      server-addr: 47.94.164.185:8849
+      server-addr: 192.168.45.64:8849
   # 环境 dev|test|prod
   profiles:
     active: dev

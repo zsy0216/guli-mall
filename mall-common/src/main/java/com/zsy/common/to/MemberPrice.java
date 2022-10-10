@@ -1,6 +1,6 @@
 /**
-  * Copyright 2019 bejson.com
-  */
+ * Copyright 2019 bejson.com
+ */
 package com.zsy.common.to;
 
 import lombok.Data;
@@ -19,5 +19,9 @@ public class MemberPrice {
     private Long id;
     private String name;
     private BigDecimal price;
+
+    public static void main(String[] args) {
+        Object A = new Object();
+    }
 
 }

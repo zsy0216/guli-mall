@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.94.164.185:8849
+        server-addr: 192.168.45.64:8849
     gateway:
       routes:
         #Query A 参数有A就行，Query B,C 参数B的值为C即可

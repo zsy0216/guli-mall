@@ -4,12 +4,12 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://192.168.163.131:3306/mall_sms
+    url: jdbc:mysql://192.168.45.64:3306/mall_sms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.163.131:8848
+        server-addr: 192.168.45.64:8849
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
@@ -17,7 +17,7 @@ mybatis-plus:
     db-config:
       id-type: auto
 server:
-  port: 7000
+  port: 7070
 
 # 优先读取bootstrap.yaml中配置中心的配置
 coupon:

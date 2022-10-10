@@ -4,12 +4,12 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://47.94.164.185:3306/mall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://192.168.45.64:3306/mall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
       discovery:
-        server-addr: 47.94.164.185:8849
+        server-addr: 192.168.45.64:8849
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   thymeleaf:
