@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsy.product.entity.AttrEntity;
 import com.zsy.product.service.AttrAttrgroupRelationService;
 import com.zsy.product.service.AttrService;
@@ -87,9 +86,9 @@ public class AttrGroupController {
      */
     @RequestMapping("/list/{catelogId}")
     //@RequiresPermissions("product:attrgroup:list")
-    public R list(@RequestParam Map<String, Object> params,
-                  @PathVariable("catelogId") Long catelogId) {
-        Page<AttrGroupEntity> page = attrGroupService.queryPage(params, catelogId);
+    public R list(@RequestParam Map<String, Object> params, @PathVariable("catelogId") Long catelogId) {
+        // PageUtils page = attrGroupService.queryPage(params);
+        PageUtils page = attrGroupService.queryPage(params, catelogId);
         return R.ok().put("page", page);
     }
 
