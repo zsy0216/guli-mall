@@ -61,7 +61,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         //2、组装成父子的树形结构
         //2.1）、找到所有的一级分类，给children设置子分类
-        return entities.stream()
+        List<CategoryEntity> res = entities.stream()
                 // 过滤找出一级分类
                 .filter(categoryEntity -> categoryEntity.getParentCid() == 0)
                 // 处理，给一级菜单递归设置子菜单
@@ -69,18 +69,22 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 // 按sort属性排序
                 .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort())))
                 .collect(Collectors.toList());
+
+        return res;
     }
 
     public List<CategoryEntity> listWithLambda() {
 
-        List<CategoryEntity> entities = baseMapper.selectList(null).stream().sorted(Comparator.comparing(CategoryEntity::getCatId).reversed()).collect(Collectors.toList());
-        NavigableMap<Long, List<CategoryEntity>> longListNavigableMap = entities.stream().collect(Collectors.groupingBy(CategoryEntity::getParentCid, TreeMap::new, Collectors.toList())).descendingMap();
+        List<CategoryEntity> entities = new ArrayList<>(baseMapper.selectList(Wrappers.<CategoryEntity>lambdaQuery().orderByDesc(CategoryEntity::getCatId)));
+        Map<Long, List<CategoryEntity>> longListNavigableMap = entities.stream().collect(Collectors.groupingBy(CategoryEntity::getParentCid));
 
-        return entities.stream().peek(entity -> {
+        List<CategoryEntity> res = entities.stream().peek(entity -> {
             if (longListNavigableMap.containsKey(entity.getCatId())) {
                 entity.setChildren(longListNavigableMap.get(entity.getCatId()));
             }
-        }).filter(entity -> entity.getCatLevel() == 1).sorted(Comparator.comparing(CategoryEntity::getCatId)).collect(Collectors.toList());
+        }).filter(entity -> entity.getCatLevel() == 1).sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort()))).collect(Collectors.toList());
+
+        return res;
     }
 
     @Override
