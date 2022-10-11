@@ -30,9 +30,9 @@ class MallProductApplicationTests {
     @Test
     void testListWithLambda(){
 
+        List<CategoryEntity> entities1 = categoryService.listWithTree();
         List<CategoryEntity> entities = categoryService.listWithLambda();
 
-        List<CategoryEntity> entities1 = categoryService.listWithTree();
         
     }
 
