@@ -1,5 +1,6 @@
 package com.zsy.product.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsy.product.vo.AttrGroupWithAttrsVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zsy.common.utils.PageUtils;
@@ -31,7 +32,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @param catelogId 分类id
      * @return
      */
-    PageUtils queryPage(Map<String, Object> params, Long catelogId);
+    Page<AttrGroupEntity> queryPage(Map<String, Object> params, Long catelogId);
 
     List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId);
 
