@@ -26,6 +26,13 @@ public interface CategoryService extends IService<CategoryEntity> {
      */
     List<CategoryEntity> listWithTree();
 
+
+    /**
+     * 分组
+     * @return
+     */
+    public List<CategoryEntity> listWithLambda();
+
     /**
      * 批量删除分类
      *
