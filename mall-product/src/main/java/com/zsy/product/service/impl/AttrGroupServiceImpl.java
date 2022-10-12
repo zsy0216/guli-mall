@@ -50,8 +50,8 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         String key = (String) params.get("key");
         String pageSize = (String) params.get("page");
         String limitSize = (String) params.get("limit");
-        String order = (String) params.get("order") != null ? (String) params.get("order") : "asc";
-        String sidx = (String) params.get("sidx") != null ? (String) params.get("sidx") : "attr_group_id";
+        String order = params.get("order") != null ? (String) params.get("order") : "asc";
+        String sidx = params.get("sidx") != null ? (String) params.get("sidx") : "attr_group_id";
         boolean isAsc = "ASC".equals(order.toUpperCase());
 
         // 构造查询sql
