@@ -89,7 +89,7 @@ public class AttrGroupController {
     //@RequiresPermissions("product:attrgroup:list")
     public R list(@RequestParam Map<String, Object> params,
                   @PathVariable("catelogId") Long catelogId) {
-        Page<AttrGroupEntity> page = attrGroupService.queryPage(params, catelogId);
+        PageUtils page = attrGroupService.queryPage(params, catelogId);
         return R.ok().put("page", page);
     }
 

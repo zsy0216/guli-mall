@@ -1,6 +1,5 @@
 package com.zsy.product.service.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsy.product.entity.AttrEntity;
 import com.zsy.product.service.AttrService;
@@ -45,14 +44,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     }
 
     @Override
-    public Page<AttrGroupEntity> queryPage(Map<String, Object> params, Long catelogId) {
+    public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
 
         // 解析map，获得参数
         String key = (String) params.get("key");
-        Long pageSize = (Long) params.get("page");
-        Long limitSize = (Long) params.get("limit");
-        String order = (String) params.get("order");
-        String sidx = (String) params.get("sidx");
+        String pageSize = (String) params.get("page");
+        String limitSize = (String) params.get("limit");
+        String order = (String) params.get("order") != null ? (String) params.get("order") : "asc";
+        String sidx = (String) params.get("sidx") != null ? (String) params.get("sidx") : "attr_group_id";
         boolean isAsc = "ASC".equals(order.toUpperCase());
 
         // 构造查询sql
@@ -65,7 +64,10 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         if (catelogId != 0) {
             wrapper.eq("catelog_id", catelogId);
         }
-        return this.page(new Page<>(pageSize, limitSize), wrapper);
+        Page<AttrGroupEntity> page = this.page(new Page<>(Long.parseLong(pageSize), Long.parseLong(limitSize)), wrapper);
+
+        return new PageUtils(page);
+
     }
 
     /**

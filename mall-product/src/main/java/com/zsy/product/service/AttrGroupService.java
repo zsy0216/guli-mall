@@ -32,7 +32,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @param catelogId 分类id
      * @return
      */
-    Page<AttrGroupEntity> queryPage(Map<String, Object> params, Long catelogId);
+    PageUtils queryPage(Map<String, Object> params, Long catelogId);
 
     List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId);
 
