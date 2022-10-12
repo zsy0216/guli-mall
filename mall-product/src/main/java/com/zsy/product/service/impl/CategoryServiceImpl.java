@@ -99,10 +99,30 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public Long[] findCatalogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
-        List<Long> parentPath = findParentPath(catelogId, paths);
+        findParentPath(catelogId, paths);
 
-        Collections.reverse(parentPath);
-        return parentPath.toArray(new Long[parentPath.size()]);
+        Collections.reverse(paths);
+        return paths.toArray(new Long[0]);
+    }
+
+    /**
+     * 取消递归造成的耗时
+     * @param catelogId
+     * @return
+     */
+    public Long[] findCatalogPath2(Long catelogId) {
+
+        List<Long> paths = new ArrayList<>();
+
+        Long temp2 = catelogId;
+        paths.add(temp2);
+        while (this.getById(temp2).getParentCid() != 0) {
+            Long parentCid = this.getById(temp2).getParentCid();
+            paths.add(parentCid);
+            temp2 = parentCid;
+        }
+
+        return paths.toArray(new Long[0]);
     }
 
     /**
@@ -118,14 +138,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     //225,25,2
-    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+    private void findParentPath(Long catelogId, List<Long> paths) {
         //1、收集当前节点id
         paths.add(catelogId);
         CategoryEntity byId = this.getById(catelogId);
         if (byId.getParentCid() != 0) {
             findParentPath(byId.getParentCid(), paths);
         }
-        return paths;
     }
 
     /**

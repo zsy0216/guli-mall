@@ -33,6 +33,8 @@ public interface CategoryService extends IService<CategoryEntity> {
      */
     public List<CategoryEntity> listWithLambda();
 
+    public Long[] findCatalogPath2(Long catelogId);
+
     /**
      * 批量删除分类
      *
