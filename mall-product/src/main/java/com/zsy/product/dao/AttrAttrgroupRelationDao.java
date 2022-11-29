@@ -14,7 +14,6 @@ import java.util.List;
  * @email 594983498@qq.com
  * @date 2019-10-01 21:08:49
  */
-@Mapper
 public interface AttrAttrgroupRelationDao extends BaseMapper<AttrAttrgroupRelationEntity> {
 
     void deleteBatchRelation(@Param("entities") List<AttrAttrgroupRelationEntity> entities);

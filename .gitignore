@@ -13,6 +13,8 @@ HELP.md
 .settings
 .springBeans
 .sts4-cache
+*.yml
+*.properties
 
 ### IntelliJ IDEA ###
 .idea

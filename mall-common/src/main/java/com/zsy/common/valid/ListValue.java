@@ -15,12 +15,16 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author ZSY
  */
 @Documented
+// 可以指定多个校验器
 @Constraint(validatedBy = {ListValueConstraintValidator.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 public @interface ListValue {
+
+    // 错误信息去哪里取
     String message() default "{com.zsy.common.valid.ListValue.message}";
 
+    // 分组信息
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

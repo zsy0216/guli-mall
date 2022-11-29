@@ -8,10 +8,12 @@ import com.zsy.common.valid.UpdateStatusGroup;
 import com.zsy.product.entity.BrandEntity;
 import com.zsy.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -55,25 +57,25 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand/*,BindingResult result*/) {
-//        if(result.hasErrors()){
-//            Map<String,String> map = new HashMap<>();
+    public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand /*BindingResult result*/) {
+//        if (result.hasErrors()) {
+//            Map<String, String> map = new HashMap<>();
 //            //1、获取校验的错误结果
-//            result.getFieldErrors().forEach((item)->{
+//            result.getFieldErrors().forEach((item) -> {
 //                //FieldError 获取到错误提示
 //                String message = item.getDefaultMessage();
 //                //获取错误的属性的名字
 //                String field = item.getField();
-//                map.put(field,message);
+//                map.put(field, message);
 //            });
 //
-//            return R.error(400,"提交的数据不合法").put("data",map);
-//        }else {
+//            return R.error(400, "提交的数据不合法").put("data", map);
+//        } else {
+//            brandService.save(brand);
 //
 //        }
 
         brandService.save(brand);
-
         return R.ok();
     }
 

@@ -19,12 +19,12 @@ public class MallCorsConfiguration {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         // 配置跨域
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedHeader("*"); // 允许那些头跨域
+        corsConfiguration.addAllowedMethod("*"); // 允许那些请求方法跨域
+        corsConfiguration.addAllowedOrigin("*"); // 请求来源进行跨域
+        corsConfiguration.setAllowCredentials(true); // 是否允许携带cookie跨域
 
-        source.registerCorsConfiguration("/**", corsConfiguration);
+        source.registerCorsConfiguration("/**", corsConfiguration); // 允许所有请求跨域
         return new CorsWebFilter(source);
     }
 }

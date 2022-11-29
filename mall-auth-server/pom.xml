@@ -10,6 +10,9 @@
     <artifactId>mall-auth-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mall-auth-server</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <description>认证服务（社交登录、Oauth2.0、单点登录）</description>
     <dependencies>
         <dependency>
@@ -49,6 +52,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.2.RELEASE</version>
                 <configuration>
                     <excludes>
                         <exclude>

@@ -35,6 +35,7 @@ public class BrandEntity implements Serializable {
     private Long brandId;
     /**
      * 品牌名
+     * message可以自定义校验错误信息
      */
     @NotBlank(message = "品牌名必须提交", groups = {AddGroup.class, UpdateGroup.class})
     private String name;

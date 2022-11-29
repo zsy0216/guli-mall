@@ -1,5 +1,6 @@
 package com.zsy.product.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsy.product.entity.AttrEntity;
 import com.zsy.product.service.AttrService;
 import com.zsy.product.vo.AttrGroupWithAttrsVo;
@@ -44,22 +45,29 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Override
     public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
+
+        // 解析map，获得参数
         String key = (String) params.get("key");
-        //select * from pms_attr_group where catelog_id=? and (attr_group_id=key or attr_group_name like %key%)
+        String pageSize = (String) params.get("page");
+        String limitSize = (String) params.get("limit");
+        String order = params.get("order") != null ? (String) params.get("order") : "asc";
+        String sidx = params.get("sidx") != null ? (String) params.get("sidx") : "attr_group_id";
+        boolean isAsc = "ASC".equals(order.toUpperCase());
+
+        // 构造查询sql
         QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<>();
+
         if (!StringUtils.isEmpty(key)) {
-            // 根据 key 模糊查询
-            wrapper.and(obj -> obj.eq("attr_group_id", key).or().like("attr_group_name", key));
+            wrapper.and(obj -> obj.eq("attr_group_id", key).or().like("attr_group_name", key)).orderBy(true, isAsc, sidx);
         }
 
-        if (catelogId == 0) {
-            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
-            return new PageUtils(page);
-        } else {
+        if (catelogId != 0) {
             wrapper.eq("catelog_id", catelogId);
-            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
-            return new PageUtils(page);
         }
+        Page<AttrGroupEntity> page = this.page(new Page<>(Long.parseLong(pageSize), Long.parseLong(limitSize)), wrapper);
+
+        return new PageUtils(page);
+
     }
 
     /**
@@ -89,6 +97,6 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
         //1、查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
         AttrGroupDao baseMapper = this.getBaseMapper();
-        return baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
+        return baseMapper.getAttrGroupWithAttrsBySpuId(spuId, catalogId);
     }
 }

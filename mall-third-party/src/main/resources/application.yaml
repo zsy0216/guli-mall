@@ -2,7 +2,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.163.131:8848
+        server-addr: 192.168.45.64:8849
     alicloud:
       sms:
         host: https://fesms.market.alicloudapi.com
@@ -10,11 +10,11 @@ spring:
         skin: 1
         sign: 175622
         appcode: b0563c23aff8428c97a54d4f7f9e28e5
-#      access-key: LTAI4FwvfjSycd1APnuG9bjj
-#      secret-key: O6xaxyiWfSIitcOkSuK27ju4hXT5Hl
-#      oss:
-#        endpoint: oss-cn-beijing.aliyuncs.com
-#        bucket: gulimall-hello
+      access-key: LTAI5tJgQd5U7eiq6hcJTH9b
+      secret-key: zrVtfOwYVGhr9TDtrqqsmCSloBkROt
+      oss:
+        endpoint: oss-cn-hangzhou.aliyuncs.com
+        bucket: chengsukai
   application:
     name: mall-third-party
 

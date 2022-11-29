@@ -42,6 +42,7 @@ public class CategoryEntity implements Serializable {
     private Integer catLevel;
     /**
      * 是否显示[0-不显示，1显示]
+     * 逻辑删除
      */
     @TableLogic(value = "1", delval = "0")
     private Integer showStatus;
@@ -62,7 +63,9 @@ public class CategoryEntity implements Serializable {
      */
     private Integer productCount;
 
+    // null、集合数组等没有内容、空字符串等，都不会被序列化
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    // 是否是数据库表字段
     @TableField(exist = false)
     private List<CategoryEntity> children;
 }

@@ -14,6 +14,7 @@
     <name>mall-sso-server-test</name>
     <description>单点登录的认证服务器</description>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>

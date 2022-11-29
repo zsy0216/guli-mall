@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zsy.common.utils.PageUtils;
 import com.zsy.common.utils.Query;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
  * @author ZSY
  */
 @Service("categoryService")
+// 这样可以直接使用 BaseMapper 而不用注入 BaseMapper
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
     @Autowired
@@ -59,7 +61,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         //2、组装成父子的树形结构
         //2.1）、找到所有的一级分类，给children设置子分类
-        return entities.stream()
+        List<CategoryEntity> res = entities.stream()
                 // 过滤找出一级分类
                 .filter(categoryEntity -> categoryEntity.getParentCid() == 0)
                 // 处理，给一级菜单递归设置子菜单
@@ -67,6 +69,22 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 // 按sort属性排序
                 .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort())))
                 .collect(Collectors.toList());
+
+        return res;
+    }
+
+    public List<CategoryEntity> listWithLambda() {
+
+        List<CategoryEntity> entities = new ArrayList<>(baseMapper.selectList(Wrappers.<CategoryEntity>lambdaQuery().orderByDesc(CategoryEntity::getCatId)));
+        Map<Long, List<CategoryEntity>> longListNavigableMap = entities.stream().collect(Collectors.groupingBy(CategoryEntity::getParentCid));
+
+        List<CategoryEntity> res = entities.stream().peek(entity -> {
+            if (longListNavigableMap.containsKey(entity.getCatId())) {
+                entity.setChildren(longListNavigableMap.get(entity.getCatId()));
+            }
+        }).filter(entity -> entity.getCatLevel() == 1).sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort()))).collect(Collectors.toList());
+
+        return res;
     }
 
     @Override
@@ -81,10 +99,30 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public Long[] findCatalogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
-        List<Long> parentPath = findParentPath(catelogId, paths);
+        findParentPath(catelogId, paths);
 
-        Collections.reverse(parentPath);
-        return parentPath.toArray(new Long[parentPath.size()]);
+        Collections.reverse(paths);
+        return paths.toArray(new Long[0]);
+    }
+
+    /**
+     * 取消递归造成的耗时
+     * @param catelogId
+     * @return
+     */
+    public Long[] findCatalogPath2(Long catelogId) {
+
+        List<Long> paths = new ArrayList<>();
+
+        Long temp2 = catelogId;
+        paths.add(temp2);
+        while (this.getById(temp2).getParentCid() != 0) {
+            Long parentCid = this.getById(temp2).getParentCid();
+            paths.add(parentCid);
+            temp2 = parentCid;
+        }
+
+        return paths.toArray(new Long[0]);
     }
 
     /**
@@ -100,14 +138,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     //225,25,2
-    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+    private void findParentPath(Long catelogId, List<Long> paths) {
         //1、收集当前节点id
         paths.add(catelogId);
         CategoryEntity byId = this.getById(catelogId);
         if (byId.getParentCid() != 0) {
             findParentPath(byId.getParentCid(), paths);
         }
-        return paths;
     }
 
     /**
@@ -116,6 +153,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     private List<CategoryEntity> getChildless(CategoryEntity root, List<CategoryEntity> all) {
         return all.stream()
                 .filter(categoryEntity -> categoryEntity.getParentCid().equals(root.getCatId()))
+                // 改变元素的内部状态
                 .peek(categoryEntity -> {
                     //1、找到子菜单
                     categoryEntity.setChildren(getChildless(categoryEntity, all));
@@ -128,15 +166,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * 1、每一个需要缓存的数据我们都来指定要放到那个名字的缓存。【缓存的分区(按照业务类型分)】
      * 2、@Cacheable 代表当前方法的结果需要缓存，如果缓存中有，方法都不用调用，如果缓存中没有，会调用方法。最后将方法的结果放入缓存
      * 3、默认行为
-     *   3.1 如果缓存中有，方法不再调用
-     *   3.2 key是默认生成的:缓存的名字::SimpleKey::[](自动生成key值)
-     *   3.3 缓存的value值，默认使用jdk序列化机制，将序列化的数据存到redis中
-     *   3.4 默认时间是 -1：
-     *
-     *   自定义操作：key的生成
-     *    1. 指定生成缓存的key：key属性指定，接收一个 SpEl
-     *    2. 指定缓存的数据的存活时间:配置文档中修改存活时间 ttl
-     *    3. 将数据保存为json格式: 自定义配置类 MyCacheManager
+     * 3.1 如果缓存中有，方法不再调用
+     * 3.2 key是默认生成的:缓存的名字::SimpleKey::[](自动生成key值)
+     * 3.3 缓存的value值，默认使用jdk序列化机制，将序列化的数据存到redis中
+     * 3.4 默认时间是 -1：
+     * <p>
+     * 自定义操作：key的生成
+     * 1. 指定生成缓存的key：key属性指定，接收一个 SpEl
+     * 2. 指定缓存的数据的存活时间:配置文档中修改存活时间 ttl
+     * 3. 将数据保存为json格式: 自定义配置类 MyCacheManager
      * <p>
      * 4、Spring-Cache的不足之处：
      * 1）、读模式
